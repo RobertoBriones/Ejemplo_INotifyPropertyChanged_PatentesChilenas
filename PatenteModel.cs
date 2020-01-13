@@ -42,8 +42,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
             set { _tipo = value; this.OnPropertyChanged(); }
         }
 
-        
-
+       
 
         private string _marca;
 

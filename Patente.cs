@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Ejemplo_INotifyPropertyChanged_Patentes
 {
-    public class Buscar: BaseViewModel
+    public class Patente: BaseViewModel
     {
         private string _rut;
 
@@ -13,7 +13,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
             get { return _rut; }
             set
             {
-                this._rut = FormatearRut(value);
+                _rut = FormatearRut(value);
                 this.OnPropertyChanged();
                 if (value.Length > 3)
                 {
@@ -51,7 +51,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
 
         public BindingList<PatenteModel> ConsultaViewModel { get; set; }
 
-        public Buscar()
+        public Patente()
         {
             if (ConsultaViewModel == null)
             {
