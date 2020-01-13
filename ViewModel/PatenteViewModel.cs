@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using Ejemplo_INotifyPropertyChanged_Patentes.Model;
 
-
-namespace Ejemplo_INotifyPropertyChanged_Patentes
+namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
 {
-    public class Patente: BaseViewModel
+    public class PatenteViewModel: BaseViewModel
     {
         private string _rut;
 
@@ -19,7 +19,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
                 {
                     if (ValidarRut(value))
                     {
-                        GetAutos();
+                        BuscarAutosXRut();
                     }
                 }
                 else
@@ -40,7 +40,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
                 this.OnPropertyChanged();
                 if (value.Length == 6)
                 {
-                    GetPatente();
+                    BuscarAutoXPatente();
                 }
                 else
                 {
@@ -51,14 +51,14 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
 
         public BindingList<PatenteModel> ConsultaViewModel { get; set; }
 
-        public Patente()
+        public PatenteViewModel()
         {
             if (ConsultaViewModel == null)
             {
                 ConsultaViewModel = new BindingList<PatenteModel>();
             }
         }
-        private void GetPatente()
+        private void BuscarAutoXPatente()
         {
             ConsultaViewModel.Clear();
 
@@ -97,7 +97,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
         }
 
 
-        public void GetAutos()
+        public void BuscarAutosXRut()
         {
             ConsultaViewModel.Clear();
 

@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 
-namespace Ejemplo_INotifyPropertyChanged_Patentes
+namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
