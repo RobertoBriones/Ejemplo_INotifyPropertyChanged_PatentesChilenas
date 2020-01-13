@@ -22,6 +22,11 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
                         GetAutos();
                     }
                 }
+                else
+                {
+                    ConsultaViewModel.Clear();
+                }
+                
             }
         }
 
@@ -36,6 +41,10 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
                 if (value.Length == 6)
                 {
                     GetPatente();
+                }
+                else
+                {
+                    ConsultaViewModel.Clear();
                 }
             }
         }
