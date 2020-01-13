@@ -14,7 +14,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
             textBox1.DataBindings.Add("Text", _datos, nameof(_datos.PatenteBuscar), true, DataSourceUpdateMode.OnPropertyChanged);
             textBox2.DataBindings.Add("Text", _datos, nameof(_datos.RutBuscar), true, DataSourceUpdateMode.OnPropertyChanged);
           
-            this.dataGridView1.DataSource = this._datos.ConsultaViewModel;
+            dataGridView1.DataSource = _datos.ConsultaViewModel;
             dataGridView1.Columns[0].Width = 48;
             dataGridView1.Columns[1].Width = 200;
             dataGridView1.Columns[2].Width = 75;
