@@ -4,15 +4,19 @@ using System.Net;
 using System.Text;
 
 
-namespace Ejemplo_INotifyPropertyChanged_Patentes
+namespace Ejemplo_INotifyPropertyChanged_Patentes.Servicios
 {
     public class ServicioWeb
     {
-        public string  GetDatos(string valor,string tipo)
-        {
-           
 
-            string url = " https://www.volanteomaleta.cl/"+tipo+"?term=";
+
+        #region Metodos
+
+        public string GetDatos(string valor, string tipo)
+        {
+
+
+            string url = " https://www.volanteomaleta.cl/" + tipo + "?term=";
             url = url + valor;
 
             HttpWebRequest webresult = (HttpWebRequest)WebRequest.Create(url);
@@ -35,9 +39,12 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes
             result2 = result2[1].Split(stringSeparators2, StringSplitOptions.None);
 
             return result2[0];
-            
+
 
         }
+
+
+        #endregion
 
     }
 }

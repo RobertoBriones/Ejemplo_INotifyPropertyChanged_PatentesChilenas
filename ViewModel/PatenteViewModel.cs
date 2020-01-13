@@ -1,12 +1,23 @@
 ﻿using System;
 using System.ComponentModel;
 using Ejemplo_INotifyPropertyChanged_Patentes.Model;
+using Ejemplo_INotifyPropertyChanged_Patentes.Servicios;
 
 namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
 {
     public class PatenteViewModel: BaseViewModel
     {
+        #region Atributos
+
         private string _rut;
+        private string _patente;
+
+        #endregion
+
+
+        #region Propiedades
+
+        public BindingList<PatenteModel> ConsultaViewModel { get; set; }
 
         public string RutBuscar
         {
@@ -26,11 +37,10 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
                 {
                     ConsultaViewModel.Clear();
                 }
-                
+
             }
         }
 
-        private string _patente;
         public string PatenteBuscar
         {
             get { return _patente; }
@@ -49,7 +59,10 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
             }
         }
 
-        public BindingList<PatenteModel> ConsultaViewModel { get; set; }
+        #endregion
+
+
+        #region Constructor
 
         public PatenteViewModel()
         {
@@ -58,6 +71,13 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
                 ConsultaViewModel = new BindingList<PatenteModel>();
             }
         }
+
+        #endregion
+
+
+        #region Procedimientos
+
+
         private void BuscarAutoXPatente()
         {
             ConsultaViewModel.Clear();
@@ -204,5 +224,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
                 return format;
             }
         }
+
+        #endregion
     }
 }

@@ -57,7 +57,7 @@
     <Compile Include="Model\PatenteModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServicioWeb.cs" />
+    <Compile Include="Servicios\ServicioWeb.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
