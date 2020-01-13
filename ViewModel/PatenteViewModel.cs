@@ -7,6 +7,8 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
 {
     public class PatenteViewModel: BaseViewModel
     {
+
+
         #region Atributos
 
         private string _rut;
@@ -226,5 +228,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
         }
 
         #endregion
+
+
     }
 }
