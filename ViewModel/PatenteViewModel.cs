@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Ejemplo_INotifyPropertyChanged_Patentes.Model;
 using Ejemplo_INotifyPropertyChanged_Patentes.Servicios;
+using Newtonsoft.Json;
+
 
 namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
 {
@@ -28,11 +31,11 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
             {
                 _rut = FormatearRut(value);
                 this.OnPropertyChanged();
-                if (value.Length > 3)
+                if (value.Length > 6)
                 {
                     if (ValidarRut(value))
                     {
-                        BuscarAutosXRut();
+                        BuscarAutos("Rut");
                     }
                 }
                 else
@@ -52,7 +55,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
                 this.OnPropertyChanged();
                 if (value.Length == 6)
                 {
-                    BuscarAutoXPatente();
+                    BuscarAutos("Patente");
                 }
                 else
                 {
@@ -80,83 +83,47 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
         #region Procedimientos
 
 
-        private void BuscarAutoXPatente()
+        
+
+        public void BuscarAutos(string valor)
         {
             ConsultaViewModel.Clear();
+            string dato="";
+            string dato2 = "";
 
-
-
-            ServicioWeb web = new ServicioWeb();
-            var result2 = web.GetDatos(this.PatenteBuscar, "pat");
-
-
-            string[] stringSeparators = new string[] { "<td>" };
-            string[] stringSeparators2 = new string[] { "</td>" };
-            var stringSeparators3 = new string[] { ">" };
-            var stringSeparators4 = new string[] { "<" };
-
-            var result3 = result2.Split(stringSeparators, StringSplitOptions.None);
-
-            PatenteModel b = new PatenteModel();
-
-            b.Patente = result3[1].Split(stringSeparators2, StringSplitOptions.None)[0];
-            b.Tipo = result3[2].Split(stringSeparators2, StringSplitOptions.None)[0];
-            b.Marca = result3[3].Split(stringSeparators2, StringSplitOptions.None)[0];
-            
-            var AUX = result3[4].Split(stringSeparators2, StringSplitOptions.None);
-            b.Modelo = AUX[0];
-            b.Rut = AUX[1].Split(stringSeparators3, StringSplitOptions.None)[1];
-           
-            b.Motor = result3[5].Split(stringSeparators2, StringSplitOptions.None)[0];
-            b.Año = result3[6].Split(stringSeparators2, StringSplitOptions.None)[0];
-            
-            var nombre = result3[7].Split(stringSeparators3, StringSplitOptions.None)[1];
-            b.Propietario = nombre.Split(stringSeparators4, StringSplitOptions.None)[0];
-
-
-            ConsultaViewModel.Add(b);
-
-        }
-
-
-        public void BuscarAutosXRut()
-        {
-            ConsultaViewModel.Clear();
-
-
-            ServicioWeb web = new ServicioWeb();
-            var result2 = web.GetDatos(this.RutBuscar, "rut");
-
-            string[] stringSeparators21 = new string[] { string.Format("<tr tabindex=\"1\">") };
-            var result21 = result2.Split(stringSeparators21, StringSplitOptions.RemoveEmptyEntries);
-
-
-
-
-            string[] stringSeparators = new string[] { "<td>" };
-            string[] stringSeparators2 = new string[] { "</td>" };
-            var stringSeparators3 = new string[] { ">" };
-            var stringSeparators4 = new string[] { "<" };
-
-
-
-            for (int i = 1; i < result21.Length; i++)
+            switch (valor)
             {
-                var a = result21[i];
-                var result3 = a.Split(stringSeparators, StringSplitOptions.None);
-                
+                case "Patente":
+                    dato = this.PatenteBuscar;
+                    dato2 = "pat";
+                    break;
+
+                case "Rut":
+                    dato = this.RutBuscar;
+                    dato2 = "rut";
+                    break;
+
+                default:
+                    break;
+            }
+
+            ServicioWeb web = new ServicioWeb();
+            var json = web.GetDatos(dato, dato2);
+            List<List<string>> post = JsonConvert.DeserializeObject<List<List<string>>>(@json);
+
+            for (int i = 0; i < post.Count; i++)
+            {
                 PatenteModel b = new PatenteModel();
 
-                b.Patente= result3[1].Split(stringSeparators2, StringSplitOptions.None)[0];
-                b.Tipo = result3[2].Split(stringSeparators2, StringSplitOptions.None)[0];
-                b.Marca = result3[3].Split(stringSeparators2, StringSplitOptions.None)[0];
-                var AUX = result3[4].Split(stringSeparators2, StringSplitOptions.None);
-                b.Modelo = AUX[0];
-                b.Rut = AUX[1].Split(stringSeparators3, StringSplitOptions.None)[1];
-                b.Motor = result3[5].Split(stringSeparators2, StringSplitOptions.None)[0];
-                b.Año = result3[6].Split(stringSeparators2, StringSplitOptions.None)[0];
-                var nombre = result3[7].Split(stringSeparators3, StringSplitOptions.None)[1];
-                b.Propietario = nombre.Split(stringSeparators4, StringSplitOptions.None)[0];
+                b.Patente = post[i][0];
+                b.Tipo = post[i][1];
+                b.Marca = post[i][2];
+                b.Modelo = post[i][3];
+                b.Rut = post[i][4];
+                b.Motor = post[i][5];
+                b.Año = post[i][6];
+                b.Propietario = post[i][7];
+
                 ConsultaViewModel.Add(b);
             }
 
