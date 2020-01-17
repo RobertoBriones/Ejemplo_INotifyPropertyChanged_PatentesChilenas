@@ -20,6 +20,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
         #endregion
 
 
+
         #region Propiedades
 
         public BindingList<PatenteModel> ConsultaViewModel { get; set; }
@@ -67,6 +68,7 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
         #endregion
 
 
+
         #region Constructor
 
         public PatenteViewModel()
@@ -80,10 +82,8 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
         #endregion
 
 
+
         #region Procedimientos
-
-
-        
 
         public void BuscarAutos(string valor)
         {
@@ -109,22 +109,23 @@ namespace Ejemplo_INotifyPropertyChanged_Patentes.ViewModel
 
             ServicioWeb web = new ServicioWeb();
             var json = web.GetDatos(dato, dato2);
-            List<List<string>> post = JsonConvert.DeserializeObject<List<List<string>>>(@json);
+            List<List<string>> Vehiculos = JsonConvert.DeserializeObject<List<List<string>>>(@json);
 
-            for (int i = 0; i < post.Count; i++)
+            for (int i = 0; i < Vehiculos.Count; i++)
             {
-                PatenteModel b = new PatenteModel();
+                PatenteModel Vehiculo = new PatenteModel
+                {
+                    Patente = Vehiculos[i][0],
+                    Tipo = Vehiculos[i][1],
+                    Marca = Vehiculos[i][2],
+                    Modelo = Vehiculos[i][3],
+                    Rut = Vehiculos[i][4],
+                    Motor = Vehiculos[i][5],
+                    Año = Vehiculos[i][6],
+                    Propietario = Vehiculos[i][7]
+                };
 
-                b.Patente = post[i][0];
-                b.Tipo = post[i][1];
-                b.Marca = post[i][2];
-                b.Modelo = post[i][3];
-                b.Rut = post[i][4];
-                b.Motor = post[i][5];
-                b.Año = post[i][6];
-                b.Propietario = post[i][7];
-
-                ConsultaViewModel.Add(b);
+                ConsultaViewModel.Add(Vehiculo);
             }
 
 
